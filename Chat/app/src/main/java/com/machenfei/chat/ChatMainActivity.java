@@ -1,10 +1,12 @@
 package com.machenfei.chat;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.view.View;
 
-public class ChatMainActivity extends AppCompatActivity {
+public class ChatMainActivity extends FragmentActivity {
 
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -15,10 +17,12 @@ public class ChatMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_main);
-
-        // Example of a call to a native method
-        TextView tv = (TextView) findViewById(R.id.sample_text);
-        tv.setText(stringFromJNI());
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
+        if (fragment == null) {
+            fragment = new ChatMainFragment();
+            fm.beginTransaction().add(R.id.fragmentContainer, fragment).commit();
+        }
     }
 
     /**
