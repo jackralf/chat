@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Chat</string>
+    <string name="text_wx">微信</string>
+    <string name="text_navigation_name">导航</string>
+    <string name="text_address">通讯录</string>
+    <string name="text_explore">发现</string>
+    <string name="text_me">我</string>
+    <string name="text_explore_1">朋友圈</string>
+    <string name="text_explore_2">扫一扫</string>
+    <string name="text_explore_3">摇一摇</string>
+    <string name="text_explore_4">附近的人</string>
+    <string name="text_explore_5">漂流瓶</string>
+    <string name="text_explore_6">购物</string>
+    <string name="text_explore_7">游戏</string>
 </resources>

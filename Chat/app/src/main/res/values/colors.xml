@@ -3,6 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorTitleBarBg">#2B2C30</color>
+    <color name="colorToolbarBackground">#2B2C30</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorItemName">#000000</color>
+    <color name="colorItemContent">#8C8C8C</color>
+    <color name="colorItemTime">#8C8C8C</color>
+    <color name="colorItemDivider">#8C8C8C</color>
+    <color name="colorItemHeader">#E6E6E6</color>
 </resources>
