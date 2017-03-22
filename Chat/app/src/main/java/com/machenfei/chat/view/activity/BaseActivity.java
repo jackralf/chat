@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -69,9 +70,20 @@ public class BaseActivity extends AppCompatActivity implements BottomNavigationB
     }
 
     private void initToolbar() {
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
+
+    protected void hideBottomNavigationBar() {
+        if (bottomNavigationBar != null) {
+            bottomNavigationBar.setVisibility(View.GONE);
+        }
+    }
+
+    protected void setReturnBtn() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
@@ -85,6 +97,9 @@ public class BaseActivity extends AppCompatActivity implements BottomNavigationB
         switch (item.getItemId()) {
             case R.id.search:
                 Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
+                break;
+            case android.R.id.home:
+                finish();
                 break;
             default:
                 break;

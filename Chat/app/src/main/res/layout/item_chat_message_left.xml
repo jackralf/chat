@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/item_head_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_default_avator"/>
+
+    <TextView
+        android:id="@+id/item_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/item_head_image"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:text="jackralf"
+        android:textColor="@color/colorBlack"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/item_message_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/item_head_image"
+        android:layout_below="@+id/item_user_name"
+        android:text="hello"
+        android:textSize="20sp"
+        android:textColor="@color/colorBlack"
+        android:background="@drawable/ic_chat_message_left_normal"/>
+
+</RelativeLayout>

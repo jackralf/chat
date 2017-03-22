@@ -1,6 +1,7 @@
 package com.machenfei.chat.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.machenfei.chat.R;
 import com.machenfei.chat.model.ChatMainItem;
+import com.machenfei.chat.view.activity.ChatPanelActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -49,7 +51,9 @@ public class ChatMainAdapter extends RecyclerView.Adapter<ChatMainAdapter.ViewHo
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(parent.getContext(), "click", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "click", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, ChatPanelActivity.class);
+                mContext.startActivity(intent);
             }
         });
         return viewHolder;

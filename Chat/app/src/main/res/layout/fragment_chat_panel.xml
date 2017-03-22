@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorChatPanelBackground">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/layout_edit"
+        android:id="@+id/swipe_refresh_widget">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@null"
+            android:scrollbars="vertical" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_edit"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+
+        <CheckBox
+            android:id="@+id/edit_checkbox"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:button="@null"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_vertical"
+            android:checked="false"
+            android:background="@drawable/checkbox"/>
+
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_vertical"
+            android:textColorHint="@color/colorBlack"
+            android:textColor="@color/colorBlack"/>
+
+        <Button
+            android:id="@+id/btn_emoji"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_emoji"/>
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_add_circle"
+            android:visibility="visible"/>
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_vertical"
+            android:text="@string/text_send"
+            android:textSize="20sp"
+            android:background="@color/colorSendBtnBackground"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+</RelativeLayout>
