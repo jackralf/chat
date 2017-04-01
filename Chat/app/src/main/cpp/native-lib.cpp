@@ -8,7 +8,10 @@ extern "C" {
 JNIEXPORT void JNICALL
 Java_com_machenfei_chat_net_NetSocketManager_initNativeSocket(JNIEnv *env, jobject instance) {
 
-    NetSocket *net = new NetSocket("127.0.0.1", "80");
+    auto cmd = new CommandBase(1);
+    for (int i = 0; i < 10; ++i) {
+        cmd->send();
+    }
 }
 
 }

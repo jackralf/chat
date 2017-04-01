@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <netdb.h>
 #include <stdlib.h>
+#include "NetBuffer.h"
 
 static void* ThreadSendProtocol(void* pData) {
     LOGD("send thread start");
@@ -18,8 +19,16 @@ static void* ThreadSendProtocol(void* pData) {
         if (!pSocket->isConnected()) {
             continue;
         }
-
-
+        NetBuffer* pBuffer = pSocket->getFirstBuffer();
+        if (!pBuffer) {
+            continue;
+        }
+        ssize_t ret = send(pSocket->getSocketHandle(), pBuffer->getBuffer(), (ssize_t)pBuffer->getBufferLength(), 0);
+        if (ret <= 0) {
+            LOGD("socket send error");
+        }
+        LOGD("send data by socket: send type = %d , len = %d", pBuffer->getDataType(), (int)ret);
+        pSocket->popFirstBuffer();
     }
     pSocket->closeSocket();
     return (void*)0;
@@ -44,8 +53,14 @@ NetSocket::NetSocket(std::string ip, std::string port):m_ip(ip),m_port(port) {
     m_bConnected = false;
     m_bSendThreadInProc = false;
     m_bRecvThreadInProc = false;
+    pthread_mutex_init(&m_threadMutexSend, NULL);
+    pthread_mutex_init(&m_threadMutexRecv, NULL);
 
     init();
+}
+
+NetSocket::~NetSocket() {
+
 }
 
 void NetSocket::init() {
@@ -116,3 +131,34 @@ void NetSocket::closeSocket() {
         m_bConnected = false;
     }
 }
+
+int NetSocket::writeSendBuffer(CommandBase *command) {
+    NetBuffer* pBuffer = new NetBuffer();
+    int writeLen = pBuffer->writeBuffer(command);
+
+    if (writeLen > 0) {
+        pthread_mutex_lock(&m_threadMutexSend);
+        m_vNetSendBufferList.push_back(pBuffer);
+        pthread_mutex_unlock(&m_threadMutexSend);
+    } else {
+        delete pBuffer;
+    }
+
+    return writeLen;
+}
+
+NetBuffer *NetSocket::getFirstBuffer() {
+    pthread_mutex_lock(&m_threadMutexSend);
+    NetBuffer* pBuffer = m_vNetSendBufferList.size() > 0 ? m_vNetSendBufferList[0] : NULL;
+    pthread_mutex_unlock(&m_threadMutexSend);
+    return pBuffer;
+}
+
+void NetSocket::popFirstBuffer() {
+    pthread_mutex_lock(&m_threadMutexSend);
+    delete (*m_vNetSendBufferList.begin());
+    m_vNetSendBufferList.erase(m_vNetSendBufferList.begin());
+    pthread_mutex_unlock(&m_threadMutexSend);
+}
+
+

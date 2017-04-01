@@ -7,8 +7,12 @@
 
 
 #include <string>
+#include <vector>
+#include <net/command/CommandBase.h>
 #include "common.h"
 
+class NetBuffer;
+typedef std::vector<NetBuffer*> NETBUFFER_LIST;
 class NetSocket {
 
 public:
@@ -16,6 +20,7 @@ public:
     ~NetSocket();
 
     inline bool isConnected() { return m_bConnected;}
+    inline int getSocketHandle() { return m_hSocket; }
 
     void init();
     bool initSocket();
@@ -24,6 +29,9 @@ public:
     bool connectSocket();
     void closeSocket();
 
+    int writeSendBuffer(CommandBase* command);
+    NetBuffer* getFirstBuffer();
+    void popFirstBuffer();
 private:
     std::string m_ip;
     std::string m_port;
@@ -35,6 +43,12 @@ private:
 
     bool m_bSendThreadInProc;
     bool m_bRecvThreadInProc;
+
+    NETBUFFER_LIST m_vNetSendBufferList;
+    NETBUFFER_LIST m_vNetRecvBufferList;
+
+    pthread_mutex_t m_threadMutexSend;
+    pthread_mutex_t m_threadMutexRecv;
 };
 
 
