@@ -12,7 +12,7 @@
 class NetSocket {
 
 public:
-    NetSocket(std::string ip, int port);
+    NetSocket(std::string ip, std::string port);
     ~NetSocket();
 
     inline bool isConnected() { return m_bConnected;}
@@ -26,12 +26,15 @@ public:
 
 private:
     std::string m_ip;
-    int m_port;
+    std::string m_port;
     int m_hSocket;
     bool m_bConnected;
 
     pthread_t m_pNetSendThread;
     pthread_t m_pNetRecvThread;
+
+    bool m_bSendThreadInProc;
+    bool m_bRecvThreadInProc;
 };
 
 
